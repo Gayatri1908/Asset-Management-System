@@ -1,0 +1,341 @@
+{
+  "title": "Java Support Desk Lite",
+  "description": "A lightweight React and Spring Boot support desk baseline on the approved Java full-stack Render convention for mandatory project delivery.",
+  "repo_full_name": "niyatispark-in/template-react-spring-boot",
+  "default_branch": "main",
+  "project_kind": "mandatory",
+  "stack_type": "java",
+  "deploy_target": "render",
+  "deploy_type": "fullstack_multi_service",
+  "setup_version": "v1",
+  "project_brief_pdf_url": "",
+  "published_from_draft_id": "ptd_61a4f2f23bd34b08",
+  "published_template_id": "pt_ca06a8803bb647e1",
+  "version_note": "Initial Java baseline closure draft created on 2026-07-16 for Support Desk Lite.",
+  "generated_at": "2026-07-16T15:46:33.926Z",
+  "baseline_profile": "java-react-spring-boot-render",
+  "env_template": {
+    "variables": [
+      {
+        "key": "PORT",
+        "scope": "backend",
+        "required": true,
+        "sample": "8080"
+      },
+      {
+        "key": "FRONTEND_PUBLIC_API_BASE",
+        "scope": "frontend",
+        "required": false,
+        "sample": "https://your-api.onrender.com"
+      },
+      {
+        "key": "DEMO_USER_EMAIL",
+        "scope": "backend",
+        "required": false,
+        "sample": "agent@support.local"
+      },
+      {
+        "key": "DEMO_USER_PASSWORD",
+        "scope": "backend",
+        "required": false,
+        "sample": "support-demo"
+      }
+    ]
+  },
+  "rubric": {
+    "criteria": [
+      {
+        "key": "scope_completion",
+        "label": "Scope Completion",
+        "weight": 35
+      },
+      {
+        "key": "feature_quality",
+        "label": "Feature Quality",
+        "weight": 25
+      },
+      {
+        "key": "deployment_readiness",
+        "label": "Deployment Readiness",
+        "weight": 20
+      },
+      {
+        "key": "documentation_handoff",
+        "label": "Documentation And Handoff",
+        "weight": 20
+      }
+    ],
+    "verdict_options": [
+      "pending",
+      "needs_work",
+      "approved",
+      "showcase_ready"
+    ]
+  },
+  "evaluation_config": {
+    "stack": "java",
+    "framework_type": "react-spring-boot",
+    "workdir": ".",
+    "commands": {
+      "install": "npm install --prefix frontend && mvn -f backend/pom.xml test -DskipTests=false",
+      "build": "npm run build --prefix frontend && mvn -f backend/pom.xml -q -DskipTests package",
+      "test": "mvn -f backend/pom.xml test",
+      "smoke": "mvn -f backend/pom.xml -Dtest=ApplicationSmokeTest test"
+    },
+    "feature_checks": [
+      {
+        "key": "login_authentication",
+        "label": "Login flow for approved users",
+        "tier": "minimum",
+        "type": "command",
+        "command": "mvn -f backend/pom.xml -Dtest=LoginAuthenticationContractTest test",
+        "required": true
+      },
+      {
+        "key": "ticket_crud",
+        "label": "Create, edit, and delete tickets",
+        "tier": "minimum",
+        "type": "command",
+        "command": "mvn -f backend/pom.xml -Dtest=TicketCrudContractTest test",
+        "required": true
+      },
+      {
+        "key": "ticket_filters",
+        "label": "Filter ticket list by status",
+        "tier": "minimum",
+        "type": "command",
+        "command": "mvn -f backend/pom.xml -Dtest=FilteredListContractTest test",
+        "required": true
+      },
+      {
+        "key": "dashboard_cards",
+        "label": "Dashboard cards showing open and closed ticket totals",
+        "tier": "minimum",
+        "type": "command",
+        "command": "mvn -f backend/pom.xml -Dtest=DashboardSummaryContractTest test",
+        "required": true
+      },
+      {
+        "key": "ticket_assignment",
+        "label": "Assign tickets to an owner",
+        "tier": "level2",
+        "type": "command",
+        "command": "mvn -f backend/pom.xml -Dtest=AssignmentContractTest test",
+        "required": false
+      },
+      {
+        "key": "ticket_comments",
+        "label": "Add comments or activity notes on a ticket",
+        "tier": "level2",
+        "type": "command",
+        "command": "mvn -f backend/pom.xml -Dtest=CommentsActivityContractTest test",
+        "required": false
+      },
+      {
+        "key": "ticket_validation",
+        "label": "Reject invalid ticket payloads with clear validation errors",
+        "tier": "level2",
+        "type": "command",
+        "command": "mvn -f backend/pom.xml -Dtest=ValidationContractTest test",
+        "required": false
+      },
+      {
+        "key": "ticket_pagination",
+        "label": "Paginated ticket listing",
+        "tier": "level3",
+        "type": "command",
+        "command": "mvn -f backend/pom.xml -Dtest=PaginationContractTest test",
+        "required": false
+      },
+      {
+        "key": "ticket_audit_trail",
+        "label": "Audit trail for key state transitions",
+        "tier": "level3",
+        "type": "command",
+        "command": "mvn -f backend/pom.xml -Dtest=AuditTrailContractTest test",
+        "required": false
+      }
+    ]
+  },
+  "service_manifest": {
+    "deploy_target": "render",
+    "deploy_type": "fullstack_multi_service",
+    "services": [
+      {
+        "name": "web",
+        "kind": "frontend",
+        "root": "frontend",
+        "port": 3000,
+        "health_path": "/"
+      },
+      {
+        "name": "api",
+        "kind": "backend",
+        "root": "backend",
+        "port": 8080,
+        "health_path": "/health"
+      }
+    ]
+  },
+  "feature_contract": {
+    "feature_contract_version": "v1",
+    "requirements": [
+      {
+        "key": "login_authentication",
+        "label": "Login flow for approved users",
+        "tier": "minimum",
+        "required": true,
+        "verification": "automated"
+      },
+      {
+        "key": "ticket_crud",
+        "label": "Create, edit, and delete tickets",
+        "tier": "minimum",
+        "required": true,
+        "verification": "automated"
+      },
+      {
+        "key": "ticket_filters",
+        "label": "Filter ticket list by status",
+        "tier": "minimum",
+        "required": true,
+        "verification": "automated"
+      },
+      {
+        "key": "dashboard_cards",
+        "label": "Dashboard cards showing open and closed ticket totals",
+        "tier": "minimum",
+        "required": true,
+        "verification": "automated"
+      },
+      {
+        "key": "ticket_assignment",
+        "label": "Assign tickets to an owner",
+        "tier": "level2",
+        "required": false,
+        "verification": "automated"
+      },
+      {
+        "key": "ticket_comments",
+        "label": "Add comments or activity notes on a ticket",
+        "tier": "level2",
+        "required": false,
+        "verification": "automated"
+      },
+      {
+        "key": "persistent_filter_state",
+        "label": "Persist filter state across refreshes",
+        "tier": "level2",
+        "required": false,
+        "verification": "manual_review_required",
+        "manual_reason": "This baseline leaves browser persistence UX to SPC review because the starter kit does not ship a trusted frontend e2e runner yet."
+      },
+      {
+        "key": "ticket_validation",
+        "label": "Reject invalid ticket payloads with clear validation errors",
+        "tier": "level2",
+        "required": false,
+        "verification": "automated"
+      },
+      {
+        "key": "debounced_search",
+        "label": "Debounced ticket search",
+        "tier": "level3",
+        "required": false,
+        "verification": "manual_review_required",
+        "manual_reason": "This interaction is currently reviewed manually until a frontend behavior harness is frozen for the Java baseline."
+      },
+      {
+        "key": "ticket_pagination",
+        "label": "Paginated ticket listing",
+        "tier": "level3",
+        "required": false,
+        "verification": "automated"
+      },
+      {
+        "key": "ticket_audit_trail",
+        "label": "Audit trail for key state transitions",
+        "tier": "level3",
+        "required": false,
+        "verification": "automated"
+      }
+    ]
+  },
+  "deployment_contract": {
+    "provider": "render",
+    "deployment_standard": "mandatory-render-v1",
+    "stack": "java",
+    "framework_type": "react-spring-boot",
+    "deploy_type": "fullstack_multi_service",
+    "blueprint_path": "render.yaml",
+    "day1_live_skeleton": {
+      "required": true,
+      "checks": [
+        "backend_health",
+        "frontend_http",
+        "api_connectivity",
+        "blueprint_valid"
+      ]
+    },
+    "generated_env_keys": [
+      "PORT",
+      "FRONTEND_PUBLIC_API_BASE",
+      "DEMO_USER_EMAIL",
+      "DEMO_USER_PASSWORD"
+    ],
+    "database": {
+      "required": false,
+      "provider": "render_postgres_preferred"
+    },
+    "frontend": {
+      "service_type": "static_site",
+      "name": "web",
+      "root_dir": "frontend",
+      "health_path": "/"
+    },
+    "backend": {
+      "service_type": "web_service",
+      "name": "api",
+      "root_dir": "backend",
+      "health_path": "/health"
+    }
+  },
+  "files": [
+    ".gitignore",
+    "README.md",
+    "backend/Dockerfile",
+    "backend/pom.xml",
+    "backend/src/main/java/com/niyati/template/Application.java",
+    "backend/src/test/java/com/niyati/template/ApplicationSmokeTest.java",
+    "backend/src/test/java/com/niyati/template/AssignmentContractTest.java",
+    "backend/src/test/java/com/niyati/template/AuditTrailContractTest.java",
+    "backend/src/test/java/com/niyati/template/CommentsActivityContractTest.java",
+    "backend/src/test/java/com/niyati/template/DashboardSummaryContractTest.java",
+    "backend/src/test/java/com/niyati/template/FeatureContractBaselineTest.java",
+    "backend/src/test/java/com/niyati/template/FeatureContractPlaceholder.java",
+    "backend/src/test/java/com/niyati/template/FilteredListContractTest.java",
+    "backend/src/test/java/com/niyati/template/LoginAuthenticationContractTest.java",
+    "backend/src/test/java/com/niyati/template/PaginationContractTest.java",
+    "backend/src/test/java/com/niyati/template/TicketCrudContractTest.java",
+    "backend/src/test/java/com/niyati/template/ValidationContractTest.java",
+    "frontend/package.json",
+    "frontend/scripts/build.mjs",
+    "frontend/src/app.js",
+    "frontend/src/index.html",
+    "frontend/src/styles.css",
+    "frontend/tests/day1-static.test.mjs",
+    "niyati/deployment-contract.json",
+    "niyati/env-template.json",
+    "niyati/evaluation-config.json",
+    "niyati/feature-contract.json",
+    "niyati/level2-features.md",
+    "niyati/level3-features.md",
+    "niyati/minimum-features.md",
+    "niyati/project-brief.md",
+    "niyati/rubric.json",
+    "niyati/service-manifest.json",
+    "niyati/setup-guide.md",
+    "niyati/template-manifest.json",
+    "render.yaml"
+  ]
+}

@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./frontend/dist
+  - type: web
+    name: api
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health

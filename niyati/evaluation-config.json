@@ -1,0 +1,85 @@
+{
+  "stack": "java",
+  "framework_type": "react-spring-boot",
+  "workdir": ".",
+  "commands": {
+    "install": "npm install --prefix frontend && mvn -f backend/pom.xml test -DskipTests=false",
+    "build": "npm run build --prefix frontend && mvn -f backend/pom.xml -q -DskipTests package",
+    "test": "mvn -f backend/pom.xml test",
+    "smoke": "mvn -f backend/pom.xml -Dtest=ApplicationSmokeTest test"
+  },
+  "feature_checks": [
+    {
+      "key": "login_authentication",
+      "label": "Login flow for approved users",
+      "tier": "minimum",
+      "type": "command",
+      "command": "mvn -f backend/pom.xml -Dtest=LoginAuthenticationContractTest test",
+      "required": true
+    },
+    {
+      "key": "ticket_crud",
+      "label": "Create, edit, and delete tickets",
+      "tier": "minimum",
+      "type": "command",
+      "command": "mvn -f backend/pom.xml -Dtest=TicketCrudContractTest test",
+      "required": true
+    },
+    {
+      "key": "ticket_filters",
+      "label": "Filter ticket list by status",
+      "tier": "minimum",
+      "type": "command",
+      "command": "mvn -f backend/pom.xml -Dtest=FilteredListContractTest test",
+      "required": true
+    },
+    {
+      "key": "dashboard_cards",
+      "label": "Dashboard cards showing open and closed ticket totals",
+      "tier": "minimum",
+      "type": "command",
+      "command": "mvn -f backend/pom.xml -Dtest=DashboardSummaryContractTest test",
+      "required": true
+    },
+    {
+      "key": "ticket_assignment",
+      "label": "Assign tickets to an owner",
+      "tier": "level2",
+      "type": "command",
+      "command": "mvn -f backend/pom.xml -Dtest=AssignmentContractTest test",
+      "required": false
+    },
+    {
+      "key": "ticket_comments",
+      "label": "Add comments or activity notes on a ticket",
+      "tier": "level2",
+      "type": "command",
+      "command": "mvn -f backend/pom.xml -Dtest=CommentsActivityContractTest test",
+      "required": false
+    },
+    {
+      "key": "ticket_validation",
+      "label": "Reject invalid ticket payloads with clear validation errors",
+      "tier": "level2",
+      "type": "command",
+      "command": "mvn -f backend/pom.xml -Dtest=ValidationContractTest test",
+      "required": false
+    },
+    {
+      "key": "ticket_pagination",
+      "label": "Paginated ticket listing",
+      "tier": "level3",
+      "type": "command",
+      "command": "mvn -f backend/pom.xml -Dtest=PaginationContractTest test",
+      "required": false
+    },
+    {
+      "key": "ticket_audit_trail",
+      "label": "Audit trail for key state transitions",
+      "tier": "level3",
+      "type": "command",
+      "command": "mvn -f backend/pom.xml -Dtest=AuditTrailContractTest test",
+      "required": false
+    }
+  ]
+}
