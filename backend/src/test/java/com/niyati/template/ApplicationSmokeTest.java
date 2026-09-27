@@ -1,25 +1,27 @@
 package com.niyati.template;
 
-import com.sun.net.httpserver.HttpServer;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ApplicationSmokeTest {
+
+    @LocalServerPort
+    private int port;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
+
     @Test
-    void healthEndpointReturnsOk() throws IOException {
-        HttpServer server = Application.createServer(0);
-        server.start();
-        try {
-            int port = server.getAddress().getPort();
-            HttpURLConnection conn = (HttpURLConnection) new URL("http://127.0.0.1:" + port + "/health").openConnection();
-            assertEquals(200, conn.getResponseCode());
-        } finally {
-            server.stop(0);
-        }
+    void healthEndpointReturnsOk() {
+        ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:" + port + "/health", String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 }

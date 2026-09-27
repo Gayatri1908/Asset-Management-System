@@ -1,28 +1,28 @@
 package com.niyati.template;
 
-import com.sun.net.httpserver.HttpServer;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.ResponseEntity;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class FeatureContractBaselineTest {
+
+    @LocalServerPort
+    private int port;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
+
     @Test
-    void versionEndpointMentionsJavaRuntime() throws IOException {
-        HttpServer server = Application.createServer(0);
-        server.start();
-        try {
-            int port = server.getAddress().getPort();
-            try (InputStream stream = new URL("http://127.0.0.1:" + port + "/api/version").openStream()) {
-                String body = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
-                assertTrue(body.contains("\"runtime\":\"java\""));
-            }
-        } finally {
-            server.stop(0);
-        }
+    void versionEndpointMentionsJavaRuntime() {
+        ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:" + port + "/api/version", String.class);
+        assertNotNull(response.getBody());
+        assertTrue(response.getBody().contains("\"runtime\":\"java\""));
     }
 }

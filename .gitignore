@@ -10,3 +10,10 @@ target/
 .env
 frontend/node_modules/
 backend/target/
+backend/data/
+backend/logs/
+*.db
+*.mv.db
+*.lock.db
+.DS_Store
+

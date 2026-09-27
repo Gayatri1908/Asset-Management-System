@@ -1,0 +1,133 @@
+.am-login-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background: var(--am-bg);
+  font-family: 'Inter', sans-serif;
+}
+
+.am-login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 30px 30px;
+}
+
+.am-login-header {
+  margin-bottom: 20px;
+}
+
+.am-subtitle {
+  font-size: 13px;
+  color: var(--am-text-muted);
+  margin: 6px 0 0;
+}
+
+.am-login-actions {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.am-btn-full {
+  width: 100%;
+  justify-content: center;
+}
+
+.am-login-secondary-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.am-btn-link {
+  background: transparent;
+  border: none;
+  color: var(--am-primary);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+}
+
+.am-btn-link:hover {
+  color: var(--am-primary-dark);
+  text-decoration: underline;
+}
+
+.am-login-secondary-actions .am-btn-ghost {
+  font-size: 12.5px;
+  padding: 4px 6px;
+}
+
+.am-session-panel {
+  margin-top: 22px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: var(--am-success-soft);
+  border: 1px solid rgba(47, 158, 110, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.am-session-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--am-text);
+}
+
+.am-session-row svg {
+  color: var(--am-success);
+  flex-shrink: 0;
+}
+
+.am-session-token {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(47, 158, 110, 0.3);
+}
+
+.am-session-token-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--am-text-muted);
+  letter-spacing: 0.5px;
+}
+
+.am-session-token-value {
+  font-size: 11px;
+  color: var(--am-text);
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .am-login-card {
+    padding: 26px 20px 24px;
+  }
+}
+.am-login-footer {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--am-text-muted);
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.am-login-footer .am-btn-link {
+  padding: 0;
+}
