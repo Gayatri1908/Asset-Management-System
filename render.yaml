@@ -2,6 +2,7 @@ services:
   - type: web
     name: aims-frontend
     runtime: static
+    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -20,6 +21,7 @@ services:
   - type: web
     name: aims-backend
     runtime: docker
+    plan: free
     rootDir: backend
     dockerfilePath: Dockerfile
     dockerContext: .
@@ -29,4 +31,5 @@ services:
         value: 8080
       - key: SERVER_PORT
         value: 8080
+
 
