@@ -17,7 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping({"/api/auth", "/auth"})
 public class AuthController {
     
     @Autowired

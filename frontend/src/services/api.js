@@ -1,12 +1,21 @@
 import axios from 'axios';
 
+const resolveBaseUrl = () => {
+  let url = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8088/api';
+  url = url.trim().replace(/\/+$/, '');
+  if (!url.endsWith('/api')) {
+    url = `${url}/api`;
+  }
+  return url;
+};
+
 // Base Axios Instance connected to the Spring Boot backend
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8088/api',
+  baseURL: resolveBaseUrl(),
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000,
+  timeout: 15000,
 });
 
 // Request Interceptor (Auth Tokens)
