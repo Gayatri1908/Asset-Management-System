@@ -64,7 +64,9 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
             .authorizeHttpRequests(auth -> 
-                auth.requestMatchers("/api/auth/**", "/auth/**", "/health", "/api/ping", "/api/version", "/h2-console/**").permitAll()
+                auth.requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+                    .requestMatchers("/", "/error", "/favicon.ico", "/health", "/api/health", "/api/ping", "/api/version").permitAll()
+                    .requestMatchers("/api/auth/**", "/auth/**", "/h2-console/**").permitAll()
                     .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                     .anyRequest().authenticated()
             );
